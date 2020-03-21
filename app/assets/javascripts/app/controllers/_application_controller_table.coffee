@@ -942,8 +942,12 @@ class App.ControllerTable extends App.Controller
     if @resizeRightStartWidth - difference < @minColWidth
       difference = @resizeRightStartWidth - @minColWidth
 
-    @resizeTargetLeft.width @resizeLeftStartWidth + difference
-    @resizeTargetRight.width @resizeRightStartWidth - difference
+    if $('html[dir="rtl"]').length
+      @resizeTargetLeft.width @resizeLeftStartWidth - difference
+      @resizeTargetRight.width @resizeRightStartWidth + difference
+    else
+      @resizeTargetLeft.width @resizeLeftStartWidth + difference
+      @resizeTargetRight.width @resizeRightStartWidth - difference
 
   onColResizeMouseup: =>
     $(document).off('mousemove.resizeCol')
